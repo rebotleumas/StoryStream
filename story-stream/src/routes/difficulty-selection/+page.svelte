@@ -9,6 +9,7 @@
 	</h1>
 	<Dropdown items={['Beginner', 'Intermediate', 'Advanced']} 
 			  pathParameter={'difficulty'}
+			  onSelectPath={'/stories'}
 	/>
 </section>
 
