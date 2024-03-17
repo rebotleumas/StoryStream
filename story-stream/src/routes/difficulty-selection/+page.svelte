@@ -1,10 +1,11 @@
 <script>
 	import Dropdown from '../../Dropdown.svelte';
+  	import { page } from '$app/stores';
 </script>
 
 <section>
 	<h1>
-		At what level do you know XXX
+		At what level do you know {$page.url.searchParams.get('targetLanguage').toLowerCase()}?
 	</h1>
 	<Dropdown items={['Beginner', 'Intermediate', 'Advanced']} 
 			  pathParameter={'difficulty'}
