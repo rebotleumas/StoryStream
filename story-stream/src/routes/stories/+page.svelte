@@ -1,7 +1,7 @@
 <script>
 	import { page } from '$app/stores'
 	import { goto } from '$app/navigation';
-	
+
 	let showTranslation = false;
 	const toggleTranslation = () => {
 		showTranslation = !showTranslation;
@@ -16,16 +16,16 @@
 </script>
 
 <section>
-	<div class="button-and-title">
-		<h1>
-			Here's {difficulty === 'advanced' ? 'an' : 'a'} {difficulty} story for you
-		</h1>
-		<button class="new-story" on:click={nextStory}>
-			Next story 
-		</button>
-	</div>
+	<h1>
+		Here's {difficulty === 'advanced' ? 'an' : 'a'} {difficulty} story for you
+	</h1>
 	<div class="story-container">
-		<h2>Story in {targetLanguage}</h2>
+		<div class="button-and-title">
+			<h2>Story in {targetLanguage}</h2>
+			<button class="new-story" on:click={nextStory}>
+				Next story 
+			</button>
+		</div>
 		<div class="story">		
 			<p>
 				在一个小村庄里，有一只叫做小橘子的小猫。小橘子非常好奇，喜欢探索周围的环境。一天，小橘子跑到了村子外面的森林里，开始了一次冒险。
@@ -146,7 +146,7 @@
   }
 
   button.new-story {
-  	margin: 10vmin;
+  	margin-left: 75%;
   	border-radius: 1vmin;
   	border: none;
   	height: 50%;
