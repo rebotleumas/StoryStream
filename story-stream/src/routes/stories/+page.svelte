@@ -1,16 +1,31 @@
 <script>
+	import { page } from '$app/stores'
+	import { goto } from '$app/navigation';
+	
 	let showTranslation = false;
 	const toggleTranslation = () => {
 		showTranslation = !showTranslation;
 	}
+	const difficulty = $page.url.searchParams.get('difficulty').toLowerCase();
+	const targetLanguage = $page.url.searchParams.get('targetLanguage');
+
+	const nextStory = () => {
+		console.log("going to new story");
+		goto("/");
+	}
 </script>
 
 <section>
-	<h1>
-		Here's a story for you...
-	</h1>
+	<div class="button-and-title">
+		<h1>
+			Here's {difficulty === 'advanced' ? 'an' : 'a'} {difficulty} story for you
+		</h1>
+		<button class="new-story" on:click={nextStory}>
+			Next story 
+		</button>
+	</div>
 	<div class="story-container">
-		<h2>Target language</h2>
+		<h2>Story in {targetLanguage}</h2>
 		<div class="story">		
 			<p>
 				在一个小村庄里，有一只叫做小橘子的小猫。小橘子非常好奇，喜欢探索周围的环境。一天，小橘子跑到了村子外面的森林里，开始了一次冒险。
@@ -26,18 +41,18 @@
 				故事的结尾，小橘子学会了勇敢和善良，帮助了许多朋友，也收获了许多友谊。
 			</p>
 		</div>
-	    <button on:click={toggleTranslation} class:active={showTranslation}>
-	    	Show translation
-		    <svg
-		      xmlns="http://www.w3.org/2000/svg"
-		      viewBox="0 0 24 24"
-		      class="icon"
-		    >
-		      <path d="M7 10l5 5 5-5z" />
-		    </svg>
-		</button>
-		{#if showTranslation}
-		<div class="story">		
+		<div class="story">	
+		    <button on:click={toggleTranslation} class:active={showTranslation} class="translation-button">
+		    	{showTranslation ? 'Hide' : 'Show'} translation
+			    <svg
+			      xmlns="http://www.w3.org/2000/svg"
+			      viewBox="0 0 24 24"
+			      class="icon"
+			    >
+			      <path d="M7 10l5 5 5-5z" />
+			    </svg>
+			</button>	
+			{#if showTranslation}
 			<p>
 				In a small village, there was a little cat named Xiao Ju Zi. Xiao Ju Zi was very curious and loved to explore its surroundings. One day, Xiao Ju Zi ventured into the forest outside the village and embarked on an adventure.
 
@@ -51,12 +66,16 @@
 
 				At the end of the story, Xiao Ju Zi learned about bravery and kindness, helped many friends, and gained many friendships.
 			</p>
+			{/if}
 		</div>
-		{/if}
 	</div>	
 </section>
 
 <style>
+    :root {
+    	--primary-color: #007bff; /* Light blue color theme */
+    	--secondary-color: #f0f0f0; /* Light gray background color */
+  	}
 	section {
 		display: flex;
 		flex-direction: column;
@@ -73,6 +92,11 @@
 		width: 100%;
 	}
 
+	div.button-and-title {
+		display: flex;
+		align-items: center;
+	}
+
 	div.story {
 		background-color: white;
 		padding: 3vmin;
@@ -84,23 +108,18 @@
 		margin: 3vmin;
 	}
 
-  :root {
-    --primary-color: #007bff; /* Light blue color theme */
-    --secondary-color: #f0f0f0; /* Light gray background color */
-  }
-
   .dropdown {
     position: relative;
     display: inline-block;
   }
 
-  button {
-    background-color: var(--primary-color);
+  button.translation-button {
+    background-color: white;
     border: none;
     outline: none;
-    color: #fff; /* White text color */
+    color: black;
     font-size: 16px;
-    padding: 10px;
+    padding: 5px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -109,8 +128,9 @@
     transition: background-color 0.3s ease;
   }
 
-  button.active {
-    background-color: var(--secondary-color);
+  button.new-story:hover {
+    background-color: #f0f0f0;
+    transition: background-color 0.3s ease;
   }
 
   .icon {
@@ -123,5 +143,19 @@
 
   button.active .icon {
     transform: rotate(180deg);
+  }
+
+  button.new-story {
+  	margin: 10vmin;
+  	border-radius: 1vmin;
+  	border: none;
+  	height: 50%;
+  	white-space: nowrap;
+  	padding: 1vmin;
+  	cursor: pointer;
+  	padding-left: 4vmin;
+  	padding-right: 4vmin;
+  	background-color: #007bff;
+  	color: white;
   }
 </style>
