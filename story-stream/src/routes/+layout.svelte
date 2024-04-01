@@ -1,5 +1,6 @@
 <script>
 	import './styles.css';
+	export let data;
 </script>
 
 <div class="app">
