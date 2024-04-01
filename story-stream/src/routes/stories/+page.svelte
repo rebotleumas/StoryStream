@@ -2,7 +2,8 @@
 	import { page } from '$app/stores'
 	import { goto } from '$app/navigation';
   import { onMount, onDestroy, beforeUpdate, afterUpdate } from 'svelte';    
-  onMount(async () => { 
+
+  afterUpdate(async () => {
 			mandarinspot.annotate();	
 	});
 	export let data;
@@ -28,7 +29,7 @@
 	}
 </script>
 
-<section>
+<section> 
 	<script src="//mandarinspot.com/static/mandarinspot.min.js" charset="UTF-8"></script>
 	<h1>
 		Here's {difficulty === 'advanced' ? 'an' : 'a'} {difficulty} story for you:
@@ -40,11 +41,13 @@
 				New story
 			</button>
 		</div>
-		<div class="story">		
+		{#key targetLanguageStory}
+		<div class="story" id="story">
 			<p>
 				{targetLanguageStory}
 			</p>
 		</div>
+		{/key}
 		<div class="story">	
 		    <button on:click={toggleTranslation} class:active={showTranslation} class="translation-button">
 		    	{showTranslation ? 'Hide' : 'Show'} translation
