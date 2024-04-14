@@ -14,18 +14,16 @@
 	}
 	const difficulty = $page.url.searchParams.get('difficulty').toLowerCase();
 	const targetLanguage = $page.url.searchParams.get('targetLanguage');
-	let story = data.stories[0];
+	let story = data.stories[0].story;
 	let storyCounter = 0;
 
-	let englishStory = story.english;
-	let targetLanguageStory = story.targetLanguage;
+	$: englishStory = story.english;
+	$: targetLanguageStory = story.targetLanguage;
 
 	const nextStory = () => {
 		storyCounter += 1;
 		storyCounter = storyCounter % data.stories.length;
-		story = data.stories[storyCounter];
-		englishStory = story.english;
-		targetLanguageStory = story.targetLanguage;
+		story = data.stories[storyCounter].story;
 	}
 </script>
 
